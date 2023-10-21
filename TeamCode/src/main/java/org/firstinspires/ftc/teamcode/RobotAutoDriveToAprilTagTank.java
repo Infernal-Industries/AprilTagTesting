@@ -187,7 +187,7 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
                 // Determine heading and range error so we can use them to control the robot automatically.
                 double  rangeError   = (desiredTag.ftcPose.range - DESIRED_DISTANCE);
                 double  headingError = desiredTag.ftcPose.bearing;
-                if (desiredTag.ftcPose.range <= 18) {
+                if (desiredTag.ftcPose.range <= 20) {
                     if (DESIRED_TAG_ID == 583) {
                         DESIRED_TAG_ID = 585;
                     } else {
