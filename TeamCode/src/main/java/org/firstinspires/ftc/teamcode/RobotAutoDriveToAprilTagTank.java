@@ -171,15 +171,10 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
                 }
             }
 
-            // Tell the driver what we see, and what to do.
-            if (targetFound) {
-                telemetry.addData("\n>","HOLD Left-Bumper to Drive to Target\n");
-                telemetry.addData("Found", "ID %d (%s)", desiredTag.id, desiredTag.metadata.name);
-                telemetry.addData("Range",  "%5.1f inches", desiredTag.ftcPose.range);
-                telemetry.addData("Bearing","%3.0f degrees", desiredTag.ftcPose.bearing);
-            } else {
-                telemetry.addData("\n>","Rotating to find valid target\n");
-            }
+            // Tell the driver what we see.
+            telemetry.addData("Found", "ID %d (%s)", desiredTag.id, desiredTag.metadata.name);
+            telemetry.addData("Range",  "%5.1f inches", desiredTag.ftcPose.range);
+            telemetry.addData("Bearing","%3.0f degrees", desiredTag.ftcPose.bearing);
 
             // If Left Bumper is being pressed, AND we have found the desired target, Drive to target Automatically .
             if (targetFound) {
@@ -187,7 +182,7 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
                 // Determine heading and range error so we can use them to control the robot automatically.
                 double  rangeError   = (desiredTag.ftcPose.range - DESIRED_DISTANCE);
                 double  headingError = desiredTag.ftcPose.bearing;
-                if (desiredTag.ftcPose.range <= 20) {
+                if (desiredTag.ftcPose.range <= 24) {
                     if (DESIRED_TAG_ID == 583) {
                         DESIRED_TAG_ID = 585;
                     } else {
@@ -196,8 +191,8 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
                 }
 
                 // Use the speed and turn "gains" to calculate how we want the robot to move.  Clip it to the maximum
-                drive = (Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED))/2;
-                turn  = (Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN))/2;
+                drive = (Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED))*0;
+                turn  = (Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN))*0;
 
                 telemetry.addData("Auto","Drive %5.2f, Turn %5.2f", drive, turn);
             } else {
@@ -207,7 +202,7 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
                 // turn  = -gamepad1.right_stick_x / 4.0;  // Reduce turn rate to 25%.
                 // telemetry.addData("Manual","Drive %5.2f, Turn %5.2f", drive, turn);
 
-                turn = 0.1;
+                turn = 0.1*0;
                 drive = 0;
             }
             telemetry.update();
